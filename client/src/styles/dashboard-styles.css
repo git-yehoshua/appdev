@@ -1,0 +1,17 @@
+.db-wrap {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 2rem;
+    text-align: center;  
+}
+
+
+.generatedQR {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+}
+
+.qr-code {
+    padding: 10px;
+}
