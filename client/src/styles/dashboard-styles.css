@@ -1,10 +1,19 @@
+
 .db-wrap {
-    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
     border-radius: 5px;
     padding: 2rem;
+    align-items: center;
     text-align: center;  
 }
 
+.search-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 45%;
+}
 
 .generatedQR {
     display: flex;
@@ -15,3 +24,4 @@
 .qr-code {
     padding: 10px;
 }
+
