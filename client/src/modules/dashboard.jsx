@@ -30,8 +30,8 @@ const Dashboard = () => {
 
   const handleGenerateQR = () => {
     setIsQRGenerated(true);
-    toast.info('QR code generating.', {
-      position: toast.POSITION.TOP_CENTER,
+    toast.success('QR code generated.', {
+      position: toast.POSITION.TOP_RIGHT,
     });
   };
 
@@ -44,13 +44,13 @@ const Dashboard = () => {
           link.href = dataUrl;
           link.click();
           toast.info('Downloading...', {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.TOP_RIGHT,
           });
         })
         .catch(function (error) {
           console.error('Error while downloading QR code.', error);
           toast.error('Error while downloading QR code.', {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.TOP_RIGHT,
           });
         });
     } else {
@@ -77,13 +77,13 @@ const Dashboard = () => {
                 function () {
                   console.log("QR code copied to clipboard successfully");
                   toast.success('QR code copied to clipboard successfully', {
-                    position: toast.POSITION.TOP_CENTER
+                    position: toast.POSITION.TOP_RIGHT
                   });
                 },
                 function (err) {
                   console.error("Unable to copy QR code to clipboard", err);
                   toast.error('Unable to copy QR code to clipboard', {
-                    position: toast.POSITION.TOP_CENTER,
+                    position: toast.POSITION.TOP_RIGHT,
                   });
                 }
               );

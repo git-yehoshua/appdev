@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connection = require('../sql/db-connection.jsx'); 
 const { insertEmployeeQuery } = require('../sql/db-query.jsx');
-
+const { userLogin, userSignup } = require('../services/auth/authController.jsx')
 dotenv.config();
 
 const app = express();
@@ -21,7 +21,12 @@ app.get('/', (req, res) => {
   res.send('Server is running.');
 });
 
-// ROUTES
+// Route for user login
+app.post('/admin/login', userLogin);
+
+// Route for user signup
+app.post('/admin/signup', userSignup);
+
 // Route for fetching all departments
 app.get('/departments', (req, res) => {
   const query = 'SELECT * FROM departments'; // Your SQL query
