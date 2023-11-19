@@ -1,20 +1,51 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connection = require('../sql/db-connection.jsx'); 
 const { insertEmployeeQuery } = require('../sql/db-query.jsx');
 const { userLogin, userSignup } = require('../services/auth/authController.jsx')
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Middleware to check if the user is authenticated
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.status(401).send({ message: 'Unauthorized' });
+  }
+}
+
+// Use sessions
+app.use(
+  session({
+    secret: 'somnium-asylum',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false, // Set to true if using HTTPS
+      maxAge: 24 * 60 * 60 * 1000, // Set the session duration (24 hours in this case)
+    },
+  })
+);
+
+
 
 // Routes
 app.get('/', (req, res) => {
@@ -63,10 +94,13 @@ app.post('/employees', (req, res) => {
   );
 });
 
-// Route to fetch all employees
+// Route to fetch employees with optional search term
 app.get("/employees", (req, res) => {
-  const query = "SELECT * FROM employees";
-  connection.query(query, (err, results) => {
+  const searchTerm = req.query.search || ""; // Get the search term from the query parameters
+  const query = `
+    SELECT * FROM employees
+    WHERE CONCAT(first_name, ' ', last_name) LIKE ?;`;
+  connection.query(query, [`%${searchTerm}%`], (err, results) => {
     if (err) throw err;
     res.send(results);
   });

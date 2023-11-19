@@ -19,8 +19,10 @@ const userLogin = (req, res) => {
         }
 
         if (response) {
-          // Only send necessary information to the client
+          // Send necessary information to the client
           const { id, username, is_admin } = result[0];
+          // Set session variable
+          req.session.user = { id, username, is_admin };
           res.send({ id, username, is_admin });
         } else {
           res.status(401).send({ message: 'Wrong email or password combination!' });
@@ -49,7 +51,7 @@ const userSignup = (req, res) => {
     const newUser = {
       username: username,
       password: hashedPassword,
-      is_admin: true, // Assuming new users are admins
+      is_admin: true, // set new users as admins
     };
 
     connection.query('INSERT INTO userAdmin SET ?', newUser, (dbError, results) => {

@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/authContext';
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
+  const navigate = useNavigate()
   const [loginStatus, setLoginStatus] = useState('');
-
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -20,12 +24,15 @@ const Login = ({ setIsLoggedIn }) => {
         const response = await Axios.post('http://localhost:5000/admin/login', {
           username: values.username,
           password: values.password,
-        });
+        },
+        { withCredentials: true }
+        );
     
-        if (response.data && response.data.message) {
+        if (response.data.message) {
           setLoginStatus(response.data.message);
         } else {
           setIsLoggedIn(true);
+          navigate("/admin");
         }
       } catch (error) {
         console.error('Error during login:', error);
@@ -33,6 +40,15 @@ const Login = ({ setIsLoggedIn }) => {
       }
     },    
   });
+  
+  useEffect(() => {
+    console.log("isLoggedIn:", isLoggedIn);
+    if (isLoggedIn) {
+      navigate("/admin");
+    }
+  }, [isLoggedIn, navigate]);
+  
+  
 
   return (
     <div>
