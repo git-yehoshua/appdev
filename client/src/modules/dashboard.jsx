@@ -6,34 +6,55 @@ import QRCode from "qrcode.react";
 import * as htmlToImage from 'html-to-image';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [search, setSearch] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isQRGenerated, setIsQRGenerated] = useState(false);
+  const [isGeneratingQR, setIsGeneratingQR] = useState(false);
   const qrCodeRef = useRef(null);
   const [employeeData, setEmployeeData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEmployeeData();
-  }, []);
+  }, [selectedEmployee]);
 
   const fetchEmployeeData = async () => {
     try {
       const response = await axios.get("http://localhost:5000/employees");
       setEmployeeData(response.data);
+      const viewResponse = await axios.get(`http://localhost:5000/view-employee/${selectedEmployee.id}`);
+      setEmployeeData(viewResponse.data);
     } catch (error) {
       console.error("Error fetching employees", error);
     }
   };
 
 
-  const handleGenerateQR = () => {
-    setIsQRGenerated(true);
-    toast.success('QR code generated.', {
-      position: toast.POSITION.TOP_RIGHT,
-    });
+  const handleGenerateQR = async () => {
+    setIsGeneratingQR(true);
+  
+    try {
+      const response = await axios.get(`http://localhost:5000/view-employee/${selectedEmployee.id}`);
+      setEmployeeData(response.data);
+      setIsQRGenerated(true);
+      setIsGeneratingQR(false);
+      toast.success('QR code generated.', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
+    } catch (error) {
+      console.error('Error fetching employee details', error);
+      setIsGeneratingQR(false);
+      toast.error('Failed to generate QR code.', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
+    }
   };
+  
 
   const handleDownloadQR = () => {
     if (qrCodeRef.current) {
@@ -44,13 +65,15 @@ const Dashboard = () => {
           link.href = dataUrl;
           link.click();
           toast.info('Downloading...', {
-            position: toast.POSITION.TOP_RIGHT,
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 1000,
           });
         })
         .catch(function (error) {
           console.error('Error while downloading QR code.', error);
           toast.error('Error while downloading QR code.', {
             position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000,
           });
         });
     } else {
@@ -77,13 +100,15 @@ const Dashboard = () => {
                 function () {
                   console.log("QR code copied to clipboard successfully");
                   toast.success('QR code copied to clipboard successfully', {
-                    position: toast.POSITION.TOP_RIGHT
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 1000,
                   });
                 },
                 function (err) {
                   console.error("Unable to copy QR code to clipboard", err);
                   toast.error('Unable to copy QR code to clipboard', {
                     position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 1000,
                   });
                 }
               );
@@ -98,6 +123,9 @@ const Dashboard = () => {
     }
   };
   
+  const handleNavigateToAdmin = () => {
+    navigate('/admin');
+  }
 
   return (
     <div className="main-wrap">
@@ -107,11 +135,12 @@ const Dashboard = () => {
           <EmployeeSearch setSearch={setSearch} setSelectedEmployee={setSelectedEmployee} />
         </div>
       {selectedEmployee && (
-        <div className="employeeDetails">
+        <div className="employeeData">
           <h3>Employee Details</h3>
-          <p>Name: {selectedEmployee.name}</p>
-          <p>Department: {selectedEmployee.department}</p>
-          <p>Designation: {selectedEmployee.designation}</p>
+          <p>Employee ID: {employeeData.employeeId}</p>
+          <p>Name: {employeeData.name}</p>
+          <p>Department: {employeeData.department}</p>
+          <p>Designation: {employeeData.designation}</p>
           <button onClick={handleGenerateQR}>Generate QR</button>
         </div>
       )}
@@ -124,6 +153,7 @@ const Dashboard = () => {
           </div>
           <button onClick={handleDownloadQR}>Download</button>
           <button onClick={handleCopyQR}>Copy QR</button>
+          <button onClick={handleNavigateToAdmin}>Add employee</button>
         </div>
       )}
     </div>

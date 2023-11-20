@@ -181,6 +181,30 @@ app.get('/employees/:id',  (req, res) => {
   });
 });
 
+app.get('/view-employee/:id', (req, res) => {
+  const employeeId = req.params.id;
+  const query = `
+    SELECT 
+      e.id AS employeeId,
+      CONCAT(e.first_name, ' ', e.last_name) AS name,
+      d.name AS department,
+      des.title AS designation
+    FROM employees e
+    LEFT JOIN departments d ON e.department_id = d.id
+    LEFT JOIN designations des ON e.designation_id = des.id
+    WHERE e.id = ?;
+  `;
+
+  connection.query(query, [employeeId], (err, result) => {
+    if (err) {
+      console.error('Error fetching employee details', err);
+      res.status(500).send('Error fetching employee details');
+    } else {
+      res.send(result[0]);
+    }
+  });
+});
+
 //Route to update an employee
 app.put('/employees/:id', (req, res) => {
   const employeeId = req.params.id;
