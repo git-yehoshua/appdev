@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UpdatePopup from '../components/UpdatePopup';
 
 const Admin = () => {
   const [formData, setFormData] = useState({
@@ -17,11 +18,15 @@ const Admin = () => {
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
+  const [selectedEmployeeForUpdate, setSelectedEmployeeForUpdate] = useState(null);
+
 
   useEffect(() => {
     fetchEmployees();
     fetchDepartments();
     fetchDesignations();
+    fetchEmployeesTable();
   }, []);
 
   const fetchEmployees = async () => {
@@ -39,6 +44,7 @@ const Admin = () => {
       setDepartments(response.data);
     } catch (error) {
       console.error('Error fetching departments', error);
+      throw error;
     }
   };
 
@@ -48,6 +54,16 @@ const Admin = () => {
       setDesignations(response.data);
     } catch (error) {
       console.error('Error fetching designations', error);
+      throw error;
+    }
+  };
+
+  const fetchEmployeesTable = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/employeetable');
+      setEmployees(response.data);
+    } catch (error) {
+      console.error('Error fetching employees with details', error);
     }
   };
 
@@ -68,6 +84,8 @@ const Admin = () => {
         toast.success('Employee added successfully', {
           position: toast.POSITION.TOP_CENTER
         });
+
+        fetchEmployeesTable();
         setFormData({
           firstName: '',
           lastName: '',
@@ -91,28 +109,65 @@ const Admin = () => {
           toast.success('Employee deleted successfully', {
             position: toast.POSITION.TOP_CENTER
           });
-          // Refresh the employee list after deleting an employee
-          fetchEmployees();
+          // Fetch departments and designations before updating the employee list
+          Promise.all([fetchDepartments(), fetchDesignations()])
+            .then(() => fetchEmployeesTable())
+            .catch((error) => {
+              console.error('Error fetching departments or designations', error);
+            });
         })
         .catch((error) => {
           console.error('Error deleting employee', error);
         });
     }
-  };
+  };  
 
   const handleUpdate = (employee) => {
     setSelectedEmployee(employee);
-    // Open your update pop-up component here
-    // You can use a modal or any other UI component for updating employee information
+    setUpdatePopupOpen(true);
+  };
+  
+
+  const handleUpdatePopupClose = () => {
+    setUpdatePopupOpen(false);
+    setSelectedEmployee(null);
   };
 
-  const handleLogout = () => {
-    // Perform logout logic, such as clearing session, etc.
-    // After logout, update the isLoggedIn state to false.
-    setIsLoggedIn(false);
-    // Redirect to the login page or any other desired route.
-    navigate("/login");
+  const handleUpdateSubmit = (updatedData) => {
+    // Make an API request to update the employee data on the server
+    axios.put(`http://localhost:5000/employees/${selectedEmployee.id}`, updatedData)
+      .then((response) => {
+        console.log('Employee updated successfully', response.data);
+        toast.success('Employee updated successfully', {
+          position: toast.POSITION.TOP_CENTER
+        });
+        // Refresh the employee list after updating an employee
+        fetchEmployees();
+        fetchEmployeesTable();
+      })
+      .catch((error) => {
+        console.error('Error updating employee', error);
+      });
+  
+    // Close the update popup after updating
+    handleUpdatePopupClose();
   };
+
+
+  const handleLogout = () => {
+    // Add your logout logic here
+    // For example, you might want to clear the session and redirect to the login page
+    axios.post('http://localhost:5000/logout') // Assuming you have a logout endpoint
+      .then((response) => {
+        console.log('User logged out successfully', response.data);
+        // Perform any additional cleanup or redirection
+      })
+      .catch((error) => {
+        console.error('Error logging out', error);
+      });
+  };
+  
+  
 
   return (
     <div>
@@ -218,8 +273,15 @@ const Admin = () => {
           ))}
         </tbody>
       </table>
-
       </div>
+      <UpdatePopup
+        isOpen={isUpdatePopupOpen}
+        onClose={handleUpdatePopupClose}
+        onUpdate={handleUpdateSubmit}
+        employee={selectedEmployee}
+        departments={departments}
+        designations={designations}
+      />
     </div>
   );
 };

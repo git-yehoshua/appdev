@@ -124,6 +124,97 @@ app.get("/designations", (req, res) => {
   });
 });
 
+// Route for the table display
+app.get('/employeetable',  (req, res) => {
+  const query = `
+    SELECT 
+      e.id,
+      e.first_name,
+      e.last_name,
+      e.email,
+      d.name AS department,
+      des.title AS designation,
+      e.join_date
+    FROM employees e
+    LEFT JOIN departments d ON e.department_id = d.id
+    LEFT JOIN designations des ON e.designation_id = des.id;
+  `;
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching employees with details', err);
+      res.status(500).send('Error fetching employees with details');
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+// Route to delete an employee by ID
+app.delete('/employees/:id',  (req, res) => {
+  const employeeId = req.params.id;
+  const query = 'DELETE FROM employees WHERE id = ?';
+
+  connection.query(query, [employeeId], (err, result) => {
+    if (err) {
+      console.error('Error deleting employee', err);
+      res.status(500).send('Error deleting employee');
+    } else {
+      console.log('Employee deleted successfully');
+      res.send('Employee deleted successfully');
+    }
+  });
+});
+
+// Route to fetch a single employee by ID
+app.get('/employees/:id',  (req, res) => {
+  const employeeId = req.params.id;
+  const query = 'SELECT * FROM employees WHERE id = ?';
+
+  connection.query(query, [employeeId], (err, result) => {
+    if (err) {
+      console.error('Error fetching employee details', err);
+      res.status(500).send('Error fetching employee details');
+    } else {
+      res.send(result[0]);
+    }
+  });
+});
+
+//Route to update an employee
+app.put('/employees/:id', (req, res) => {
+  const employeeId = req.params.id;
+  const { firstName, lastName, email, departmentId, designationId, joinDate } = req.body;
+
+  const query = `
+    UPDATE employees
+    SET
+      first_name = ?,
+      last_name = ?,
+      email = ?,
+      department_id = ?,
+      designation_id = ?,
+      join_date = ?
+    WHERE id = ?
+  `;
+
+  connection.query(
+    query,
+    [firstName, lastName, email, departmentId, designationId, joinDate, employeeId],
+    (err, result) => {
+      if (err) {
+        console.error('Error updating employee', err);
+        res.status(500).send('Error updating employee');
+      } else {
+        console.log('Employee updated successfully');
+        res.send('Employee updated successfully');
+      }
+    }
+  );
+});
+
+
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

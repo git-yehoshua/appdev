@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authContext';
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [loginStatus, setLoginStatus] = useState('');
   const { isLoggedIn, setIsLoggedIn } = useAuth();
-  
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -21,40 +21,42 @@ const Login = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await Axios.post('http://localhost:5000/admin/login', {
-          username: values.username,
-          password: values.password,
-        },
-        { withCredentials: true }
+        const response = await Axios.post(
+          'http://localhost:5000/admin/login',
+          {
+            username: values.username,
+            password: values.password,
+          },
+          { withCredentials: true }
         );
-    
+
         if (response.data.message) {
           setLoginStatus(response.data.message);
         } else {
           setIsLoggedIn(true);
-          navigate("/admin");
+          // Redirect to the admin page or any other page on successful login
+          navigate('/admin');
         }
       } catch (error) {
         console.error('Error during login:', error);
         setLoginStatus('Failed to log in');
       }
-    },    
+    },
   });
-  
+
   useEffect(() => {
-    console.log("isLoggedIn:", isLoggedIn);
+    console.log('isLoggedIn:', isLoggedIn);
     if (isLoggedIn) {
-      navigate("/admin");
+      // Redirect to the admin page or any other page on successful login
+      navigate('/admin');
     }
   }, [isLoggedIn, navigate]);
-  
-  
 
   return (
     <div>
       <h1>User Login</h1>
       <form onSubmit={formik.handleSubmit}>
-        <div>
+         <div>
           <label htmlFor="username">Username</label>
           <input
             id='username'
@@ -88,7 +90,6 @@ const Login = () => {
             <p>{formik.errors.password}</p>
           )}
         </div>
-
         <button type="submit">Login</button>
       </form>
       {loginStatus && <p>{loginStatus}</p>}
