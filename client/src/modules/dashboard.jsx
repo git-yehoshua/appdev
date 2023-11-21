@@ -7,6 +7,7 @@ import * as htmlToImage from 'html-to-image';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import FloatingAddButton from "../components/FloatingAddButton";
 
 const Dashboard = () => {
   const [search, setSearch] = useState("");
@@ -18,7 +19,9 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchEmployeeData();
+    if (selectedEmployee) {
+      fetchEmployeeData();
+    }
   }, [selectedEmployee]);
 
   const fetchEmployeeData = async () => {
@@ -130,7 +133,7 @@ const Dashboard = () => {
   return (
     <div className="main-wrap">
       <div className="db-wrap">
-        <h2>Employee Dashboard</h2>
+        <h2>QR Code Generator</h2>
         <div className="search-wrap">
           <EmployeeSearch setSearch={setSearch} setSelectedEmployee={setSelectedEmployee} />
         </div>
@@ -156,6 +159,10 @@ const Dashboard = () => {
           <button onClick={handleNavigateToAdmin}>Add employee</button>
         </div>
       )}
+
+      <div className="float-wrap">
+      <FloatingAddButton/>
+      </div>
     </div>
   );
 };

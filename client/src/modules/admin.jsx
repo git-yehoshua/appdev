@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UpdatePopup from '../components/UpdatePopup';
+import { useAuth } from '../components/authContext';
 
 const Admin = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const Admin = () => {
   const [designations, setDesignations] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
-  const [selectedEmployeeForUpdate, setSelectedEmployeeForUpdate] = useState(null);
+  const {isLoggedIn, setIsLoggedIn} = useAuth();
 
 
   useEffect(() => {
@@ -160,7 +161,8 @@ const Admin = () => {
     axios.post('http://localhost:5000/logout') // Assuming you have a logout endpoint
       .then((response) => {
         console.log('User logged out successfully', response.data);
-        // Perform any additional cleanup or redirection
+        setIsLoggedIn(false);
+        
       })
       .catch((error) => {
         console.error('Error logging out', error);

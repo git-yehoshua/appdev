@@ -237,6 +237,18 @@ app.put('/employees/:id', (req, res) => {
   );
 });
 
+// Logout endpoint
+app.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'Logout successful' });
+    }
+  });
+});
+
 
 
 // Start the server

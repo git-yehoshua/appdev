@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authContext';
 
 const Login = () => {
@@ -52,6 +52,11 @@ const Login = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  const handleSignUpClick = () => {
+    // Navigate to the signup page
+    navigate('/signup');
+  };
+
   return (
     <div>
       <h1>User Login</h1>
@@ -91,6 +96,7 @@ const Login = () => {
           )}
         </div>
         <button type="submit">Login</button>
+        <button type="button" onClick={handleSignUpClick}>Sign up</button>
       </form>
       {loginStatus && <p>{loginStatus}</p>}
     </div>

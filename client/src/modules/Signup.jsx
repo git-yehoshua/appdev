@@ -4,10 +4,11 @@ import * as Yup from 'yup';
 import Axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
   const [registerStatus, setRegisterStatus] = useState('');
-
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -51,6 +52,9 @@ function Signup() {
     },
   });
 
+  const handleLoginClick = () => {
+    navigate('/admin')
+  }
   return (
     <div>
       <h1>Admin Sign Up</h1>
@@ -110,6 +114,7 @@ function Signup() {
         </div>
 
         <button type="submit">Register</button>
+        <button type='button' onClick={handleLoginClick}>Login</button>
       </form>
       {registerStatus && <p>{registerStatus}</p>}
       <ToastContainer />
