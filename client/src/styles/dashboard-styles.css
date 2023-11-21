@@ -1,12 +1,30 @@
+.main-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.action-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+}
 
 .db-wrap {
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    padding: 2rem;
+    padding: 1rem;
+    margin: 1rem;
     align-items: center;
-    text-align: center;  
+    text-align: left; 
 }
+
+
+.with-box-shadow {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid gray;
+}
+
 
 .search-wrap {
     display: flex;
@@ -18,7 +36,10 @@
 .generatedQR {
     display: flex;
     flex-direction: column;
+    border-radius: 5px;
     place-items: center;
+    padding: 1rem;
+    margin: 1rem; 
 }
 
 .qr-code {
@@ -26,3 +47,27 @@
 }
 
 
+.loading-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 16px;
+    width: 100%;
+    color: #333;
+  }
+  
+  .loading-state l-mirage {
+    margin-bottom: 10px;
+  }
+  
+  .loading-state p {
+    margin-top: 10px;
+  }
+
+  .button-wrap {
+    display: flex;
+  }
+
+  
+  

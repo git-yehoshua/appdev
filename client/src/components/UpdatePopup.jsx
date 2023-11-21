@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/update-popup.css';
 
 const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designations }) => {
   const initialData = {
@@ -29,7 +30,8 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
 
   return (
     isOpen && (
-      <div>
+      <div className='update-popup'>
+        <div className='popup-inner'>
         <h3>Update Employee</h3>
         <form onSubmit={handleSubmit}>
           <label>First Name:</label>
@@ -113,6 +115,7 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
             Close
           </button>
         </form>
+        </div>
       </div>
     )
   );

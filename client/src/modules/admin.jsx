@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UpdatePopup from '../components/UpdatePopup';
 import { useAuth } from '../components/authContext';
+import '../styles/admin.css';
 
 const Admin = () => {
   const [formData, setFormData] = useState({
@@ -172,7 +173,9 @@ const Admin = () => {
   
 
   return (
-    <div>
+    <div className='main-wrap'>
+      
+      <div className='add-employee-form-wrap'>
       <h2>Add Employee</h2>
       <form onSubmit={handleSubmit}>
         <label>First Name:</label>
@@ -245,8 +248,8 @@ const Admin = () => {
 
         <button type='button' onClick={handleLogout}>Logout</button>
       </form>
-
-      <div>
+      </div>
+      <div className='employee-table-wrap'>
       <h2>Employee List</h2>
       <table>
         <thead>
