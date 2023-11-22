@@ -1,0 +1,21 @@
+.navbar.sticky {
+    position: sticky;
+    top: 0;
+  }
+  .navbar.shadow{
+    box-shadow: 0 0 10px rgba(29, 36, 50, .1);
+  }
+  
+ 
+  .navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #eeeff1;
+    align-items: center;
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0 63px 0 10px;
+    transition: all .2s ease-in-out;
+    z-index: 21;
+  }

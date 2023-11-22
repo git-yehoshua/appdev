@@ -1,4 +1,48 @@
-.main-wrap {
+/* .admin-main-wrap {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 300px 1fr;
+} */
+
+/* TABLE DESIGNS */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  thead tr {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Cell animation on hover */
+  td {
+    transition: transform 0.3s ease;
 }
+
+td:hover {
+    transform: scale(1.05);
+}
+  button {
+    padding: 5px 10px;
+    /* background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer; */
+    margin-right: 5px;
+  }
+  
+  /* button:hover {
+    background-color: #0056b3;
+  } */
+  

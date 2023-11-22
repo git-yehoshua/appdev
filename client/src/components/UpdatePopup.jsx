@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/update-popup.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designations }) => {
   const initialData = {
@@ -112,7 +114,7 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
 
           <button type="submit">Save Changes</button>
           <button type="button" onClick={onClose}>
-            Close
+            <FontAwesomeIcon icon={faClose}/>
           </button>
         </form>
         </div>

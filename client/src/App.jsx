@@ -7,6 +7,7 @@ import Admin from './modules/admin';
 import Login from './modules/Login';
 import Signup from './modules/Signup';
 import { AuthProvider, useAuth } from './components/authContext';
+import NavBar from './components/NavBar';
 
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
       <div>
       <ToastContainer />
       <Router>
+        <NavBar />
         <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path='/signup' element={<Signup />} />

@@ -5,6 +5,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import UpdatePopup from '../components/UpdatePopup';
 import { useAuth } from '../components/authContext';
 import '../styles/admin.css';
+import AddEmployee from '../components/AddEmployee';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Admin = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +24,7 @@ const Admin = () => {
   const [designations, setDesignations] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
+  const [isAddPopupOpen, setAddPopupOpen] = useState(true);
   const {isLoggedIn, setIsLoggedIn} = useAuth();
 
 
@@ -135,6 +139,14 @@ const Admin = () => {
     setSelectedEmployee(null);
   };
 
+  const handleAddEmployeeOpen = () => {
+    setAddPopupOpen(true);
+  };
+
+  const handleAddEmployeeClose = () => {
+    setAddPopupOpen(false);
+  };
+
   const handleUpdateSubmit = (updatedData) => {
     // Make an API request to update the employee data on the server
     axios.put(`http://localhost:5000/employees/${selectedEmployee.id}`, updatedData)
@@ -173,84 +185,25 @@ const Admin = () => {
   
 
   return (
-    <div className='main-wrap'>
+    <div className='admin-main-wrap'>
+       <h2>Employee List</h2>
+      <button onClick={handleAddEmployeeOpen}>Add employee
+        <FontAwesomeIcon icon={faPlus}/>
+      </button>
+      {isAddPopupOpen && (
+        <AddEmployee
+        isOpen={isAddPopupOpen}
+        onClose={handleAddEmployeeClose} 
+        formData={formData}
+        departments={departments}
+        designations={designations}
+        handleInputChange={handleInputChange}
+        handleSubmit = {handleSubmit}
+        handleLogout={handleLogout}
+        />
+      )}
       
-      <div className='add-employee-form-wrap'>
-      <h2>Add Employee</h2>
-      <form onSubmit={handleSubmit}>
-        <label>First Name:</label>
-        <input
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleInputChange}
-          required
-        />
-        <br />
-        <label>Last Name:</label>
-        <input
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleInputChange}
-          required
-        />
-        <br />
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-        <br />
-        <label>Department:</label>
-        <select
-          name="departmentId"
-          value={formData.departmentId}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="">Select Department</option>
-          {departments.map((department) => (
-            <option key={department.id} value={department.id}>
-              {department.name}
-            </option>
-          ))}
-        </select>
-        <br />
-        <label>Designation:</label>
-        <select
-          name="designationId"
-          value={formData.designationId}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="">Select Designation</option>
-          {designations.map((designation) => (
-            <option key={designation.id} value={designation.id}>
-              {designation.title}
-            </option>
-          ))}
-        </select>
-        <br />
-        <label>Join Date:</label>
-        <input
-          type="date"
-          name="joinDate"
-          value={formData.joinDate}
-          onChange={handleInputChange}
-          required
-        />
-        <br />
-        <button type="submit">Submit</button>
-
-        <button type='button' onClick={handleLogout}>Logout</button>
-      </form>
-      </div>
       <div className='employee-table-wrap'>
-      <h2>Employee List</h2>
       <table>
         <thead>
           <tr>
@@ -287,6 +240,7 @@ const Admin = () => {
         departments={departments}
         designations={designations}
       />
+      <button type='button' onClick={handleLogout}>Logout</button>
     </div>
   );
 };
