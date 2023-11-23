@@ -36,6 +36,9 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
         <div className='popup-inner'>
         <h3>Update Employee</h3>
         <form onSubmit={handleSubmit}>
+          
+         <div className='update-input-wrap'>
+          <div>
           <label>First Name:</label>
           <input
             type="text"
@@ -45,8 +48,8 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
             placeholder={initialData.firstName}
             required
           />
-          <br />
-
+          </div>
+          <div>
           <label>Last Name:</label>
           <input
             type="text"
@@ -56,7 +59,8 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
             placeholder={initialData.lastName}
             required
           />
-          <br />
+          </div>
+         </div>
 
           <label>Email:</label>
           <input
@@ -112,8 +116,10 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
           />
           <br />
 
+          <div className='save-changes'>
           <button type="submit">Save Changes</button>
-          <button type="button" onClick={onClose}>
+          </div>
+          <button className='close-button' type="button" onClick={onClose}>
             <FontAwesomeIcon icon={faClose}/>
           </button>
         </form>

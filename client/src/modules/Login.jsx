@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import Axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authContext';
+import '../styles/login.css';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,9 +59,14 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>User Login</h1>
+    <div className='login-main-wrap'>
+      <div className='login-form-container'>
+      <div className='login-header'>
+      <h1>Login</h1>
+      <p>You must be an admin to access employee information.</p>
+      </div>
       <form onSubmit={formik.handleSubmit}>
+         <div className='input-group'>
          <div>
           <label htmlFor="username">Username</label>
           <input
@@ -95,9 +101,11 @@ const Login = () => {
             <p>{formik.errors.password}</p>
           )}
         </div>
-        <button type="submit">Login</button>
-        <button type="button" onClick={handleSignUpClick}>Sign up</button>
+         </div>
+        <button type="submit" className='btn-login'>Login</button>
+        <button type="button" className='btn-login' onClick={handleSignUpClick}>Sign up</button>
       </form>
+      </div>
       {loginStatus && <p>{loginStatus}</p>}
     </div>
   );

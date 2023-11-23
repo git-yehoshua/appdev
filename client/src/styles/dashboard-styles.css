@@ -21,7 +21,7 @@
 
 
 .with-box-shadow {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
     border: 1px solid gray;
 }
 
@@ -32,6 +32,7 @@
     padding: 0;
     width: 45%;
 }
+
 
 .generatedQR {
     display: flex;
@@ -68,6 +69,30 @@
   .button-wrap {
     display: flex;
   }
+
+  .button-wrap button {
+    padding: 10px 15px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin: 5px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    gap: 10px;
+  }
+
+  .button-wrap button:hover {
+    border: 1px solid #0fa1f5;
+    color: #0fa1f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid gray;
+  }
+  .button-wrap button:active {
+    border: 1px solid #310ff5;
+    color: #310ff5;
+  }
+
 
   
   

@@ -88,7 +88,9 @@ const Admin = () => {
       .then((response) => {
         console.log('Employee added successfully', response.data);
         toast.success('Employee added successfully', {
-          position: toast.POSITION.TOP_CENTER
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 500,
+          pauseOnHover: false
         });
 
         fetchEmployeesTable();
@@ -113,7 +115,9 @@ const Admin = () => {
         .then((response) => {
           console.log('Employee deleted successfully', response.data);
           toast.success('Employee deleted successfully', {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 500,
+            pauseOnHover: false
           });
           // Fetch departments and designations before updating the employee list
           Promise.all([fetchDepartments(), fetchDesignations()])
@@ -153,7 +157,9 @@ const Admin = () => {
       .then((response) => {
         console.log('Employee updated successfully', response.data);
         toast.success('Employee updated successfully', {
-          position: toast.POSITION.TOP_CENTER
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 500,
+          pauseOnHover: false
         });
         // Refresh the employee list after updating an employee
         fetchEmployees();
@@ -186,10 +192,12 @@ const Admin = () => {
 
   return (
     <div className='admin-main-wrap'>
-       <h2>Employee List</h2>
-      <button onClick={handleAddEmployeeOpen}>Add employee
-        <FontAwesomeIcon icon={faPlus}/>
-      </button>
+       <div className='header-wrap'>
+        <h2>Employee List</h2>
+        <button onClick={handleAddEmployeeOpen}>Add employee
+          <FontAwesomeIcon icon={faPlus}/>
+        </button>
+       </div>
       {isAddPopupOpen && (
         <AddEmployee
         isOpen={isAddPopupOpen}
@@ -225,7 +233,7 @@ const Admin = () => {
               <td>{employee.join_date}</td>
               <td>
                 <button onClick={() => handleUpdate(employee)}>Update</button>
-                <button onClick={() => handleDelete(employee.id)}>Delete</button>
+                <button className='delete-button' onClick={() => handleDelete(employee.id)}>Delete</button>
               </td>
             </tr>
           ))}

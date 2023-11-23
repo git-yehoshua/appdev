@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import FloatingAddButton from "../components/FloatingAddButton";
 import { mirage } from 'ldrs';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faArrowAltCircleRight, faCopy, faDownload } from "@fortawesome/free-solid-svg-icons";
 
 
 mirage.register();
@@ -52,7 +52,7 @@ const Dashboard = () => {
       setIsGeneratingQR(false);
       toast.success('QR code generated.', {
         position: toast.POSITION.BOTTOM_LEFT,
-        autoClose: 1000,
+        autoClose: 300,
         pauseOnHover:false,
       });
     } catch (error) {
@@ -60,7 +60,7 @@ const Dashboard = () => {
       setIsGeneratingQR(false);
       toast.error('Failed to generate QR code.', {
         position: toast.POSITION.BOTTOM_LEFT,
-        autoClose: 1000,
+        autoClose: 300,
         pauseOnHover:false,
       });
     }
@@ -77,7 +77,7 @@ const Dashboard = () => {
           link.click();
           toast.info('Downloading...', {
             position: toast.POSITION.BOTTOM_LEFT,
-            autoClose: 1000,
+            autoClose:  200,
             pauseOnHover:false,
           });
         })
@@ -85,7 +85,7 @@ const Dashboard = () => {
           console.error('Error while downloading QR code.', error);
           toast.error('Error while downloading QR code.', {
             position: toast.POSITION.BOTTOM_LEFT,
-            autoClose: 1000,
+            autoClose: 300,
             pauseOnHover:false,
           });
         });
@@ -114,7 +114,7 @@ const Dashboard = () => {
                   console.log("Copied to clipboard successfully");
                   toast.success('Copied to clipboard successfully', {
                     position: toast.POSITION.BOTTOM_LEFT,
-                    autoClose: 1000,
+                    autoClose: 300,
                     pauseOnHover:false,
                   });
                 },
@@ -122,7 +122,7 @@ const Dashboard = () => {
                   console.error("Unable to copy QR code.", err);
                   toast.error('Unable to copy QR code.', {
                     position: toast.POSITION.BOTTOM_LEFT,
-                    autoClose: 1000,
+                    autoClose: 300,
                     pauseOnHover:false,
                   });
                 }
@@ -155,8 +155,12 @@ const Dashboard = () => {
             <p>Name: {employeeData.name}</p>
             <p>Department: {employeeData.department}</p>
             <p>Designation: {employeeData.designation}</p>
-            <button onClick={handleGenerateQR}>Generate QR</button>
           </div>
+        )}
+        {selectedEmployee && ( // Conditionally render the button
+          <button className="generate-qr-button" onClick={handleGenerateQR}>
+            Generate QR <FontAwesomeIcon icon={faArrowAltCircleRight}/>
+          </button>
         )}
       </div>
       {isGeneratingQR ? (

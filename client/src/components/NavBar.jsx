@@ -2,21 +2,28 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faHome, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = () => {
 const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+  const clickToHome = () => {
     navigate('/');
   };
+
+  const clickToSignup = () => {
+    navigate('/signup');
+  }
   return (
     <div>
     <nav className="navbar sticky shadow">
     <ul>
-        <button onClick={handleButtonClick}>
-            <FontAwesomeIcon icon={faHome}/>
-            </button> 
+        <button onClick={clickToHome}>
+          <FontAwesomeIcon icon={faHome}/> Home
+        </button> 
+        <button onClick={clickToSignup}>
+          Sign up <FontAwesomeIcon icon={faUserPlus}/>
+        </button>
     </ul>
   </nav>
   </div>
