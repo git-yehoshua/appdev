@@ -7,19 +7,44 @@
   
  
   .navbar {
+    display: flex;
     background-color: #fff;
     border-bottom: 1px solid #eeeff1;
     align-items: center;
-    display: flex;
     height: 60px;
     width: 300px;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0;
-    padding: 0 63px 0 10px;
     transition: all .2s ease-in-out;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+  }
+
+  .navbar ul {
+    padding: 0%;
+  }
+
+  .home-icon {
+    margin-right: 10px;
+  }
+
+  .navbar button {
+    background-color: transparent;
+    border: none;
+    color: #213547;
+    transition: transform 0.3s ease;
+    margin: 20px;
+    font-size: 15px;
+  }
+
+  .navbar button:hover {
+    transform: scale(1.05);
+    color: cadetblue;
+  }
+
+  .navbar button:active {
+    color: rgb(0, 162, 255);
   }

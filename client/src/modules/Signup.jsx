@@ -5,6 +5,9 @@ import Axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import '../styles/signup.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 function Signup() {
   const [registerStatus, setRegisterStatus] = useState('');
@@ -55,14 +58,24 @@ function Signup() {
   const handleLoginClick = () => {
     navigate('/admin')
   }
+  const handleCloseClick = () => {
+    navigate('/')
+  }
   return (
-    <div>
-      <h1>Admin Sign Up</h1>
+    <div className='signup-main-wrap'>
+      <div className='signup-form-container'>
+          <button className='close-button' type="button" onClick={handleCloseClick}>
+             <FontAwesomeIcon icon={faClose}/>
+          </button>
+      <div className='signup-header'>
+      <h1>Sign Up</h1>
+      <p>Signup as new admin</p>
+      </div>
       <form onSubmit={formik.handleSubmit}>
-        <div>
+        <div className='input-group'>
+        <div className='log-container'>
           <label htmlFor="username">Username</label>
           <input
-            
             name="username"
             type="text"
             placeholder="Enter username"
@@ -73,11 +86,11 @@ function Signup() {
             
           />
           {formik.touched.username && formik.errors.username && (
-            <p>{formik.errors.username}</p>
+            <p className='formik-statements'>{formik.errors.username}</p>
           )}
         </div>
 
-        <div>
+        <div className='log-container'>
           <label htmlFor="password">Password</label>
           <input
             
@@ -91,11 +104,11 @@ function Signup() {
             
           />
           {formik.touched.password && formik.errors.password && (
-            <p>{formik.errors.password}</p>
+            <p className='formik-statements'>{formik.errors.password}</p>
           )}
         </div>
 
-        <div>
+        <div className='log-container'>
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             
@@ -109,15 +122,16 @@ function Signup() {
             
           />
           {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-            <p>{formik.errors.confirmPassword}</p>
+            <p className='formik-statements'>{formik.errors.confirmPassword}</p>
           )}
         </div>
-
-        <button type="submit">Register</button>
-        <button type='button' onClick={handleLoginClick}>Login</button>
+        </div>
+        <button type="submit" className='btn-signup'>Register</button>
+        <button type='button' onClick={handleLoginClick} className='btn-signup'>Login</button>
       </form>
       {registerStatus && <p>{registerStatus}</p>}
       <ToastContainer />
+      </div>   
     </div>
   );
 }

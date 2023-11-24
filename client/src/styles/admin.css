@@ -75,4 +75,51 @@ table {
   td:hover {
       transform: scale(1.05);
     }
+
+    .employee-table-wrap button {
+      padding: 10px 15px;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin: 5px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 15px;
+      gap: 10px;
+      color: #213547;
+    }
+  
+    .employee-table-wrap button:hover {
+      border: 1px solid #0fa1f5;
+      color: #0fa1f5;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border: 1px solid gray;
+    }
+    .employee-table-wrap button:active {
+      border: 1px solid #310ff5;
+      color: #310ff5;
+    }
+
+    .logout-button-wrap {
+      display: flex;
+      width: 100%;
+    }
+
+    .logout-button-wrap button {
+      padding: 10px 15px;
+      margin-left: auto;
+      margin-right: 1rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      background-color: transparent;
+      color: #213547;
+    }
+
+    .logout-button-wrap button:hover,
+    .logout-button-wrap svg:hover {
+      transform: scale(1.05);
+      color: #0fa1f5;
+    }
     

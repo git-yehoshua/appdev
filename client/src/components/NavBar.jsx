@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faHome, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = () => {
 const navigate = useNavigate();
@@ -19,7 +19,7 @@ const navigate = useNavigate();
     <nav className="navbar sticky shadow">
     <ul>
         <button onClick={clickToHome}>
-          <FontAwesomeIcon icon={faHome}/> Home
+          <FontAwesomeIcon className='home-icon' icon={faHome}/> Home
         </button> 
         <button onClick={clickToSignup}>
           Sign up <FontAwesomeIcon icon={faUserPlus}/>

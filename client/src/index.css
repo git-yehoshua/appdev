@@ -2,10 +2,6 @@
   font-family: "Google Sans",Roboto,Arial,sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,9 +25,13 @@ body {
   min-height: 100vh;
 }
 
+p {
+  margin: 5px;
+  font-size: 14px;
+}
+
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  margin: 5px;
 }
 
 h3 {
@@ -68,4 +68,20 @@ button {
 
 svg {
   margin-left: 10px;
+}
+
+.formik-statements {
+  color: red;
+  font-size: 11px;
+  margin-top: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

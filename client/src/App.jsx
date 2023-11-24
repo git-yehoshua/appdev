@@ -1,4 +1,3 @@
-import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -10,7 +9,6 @@ import { AuthProvider, useAuth } from './components/authContext';
 import NavBar from './components/NavBar';
 
 function App() {
-  
   function PrivateRoute({ element, path }) {
     const { isLoggedIn } = useAuth();
   

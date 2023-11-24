@@ -1,5 +1,7 @@
 .searchBar {
-background-color: white;
+  display: flex;
+  left: auto;
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 20px;
   box-shadow: 0px 0px 10px #ccc ;
@@ -23,6 +25,12 @@ background-color: white;
 
 .searchBar:active {
     border: 1px solid #87bdf0;
+  }
+
+  .search-icon {
+    color: gray;
+    margin: 0;
+    font-size: 17px;
   }
 
   /*SEARCH RESULT STYLES*/

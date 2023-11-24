@@ -5,6 +5,8 @@ import Axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authContext';
 import '../styles/login.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,49 +60,56 @@ const Login = () => {
     navigate('/signup');
   };
 
+  const handleCloseClick = () => {
+    navigate('/')
+  }
+
   return (
     <div className='login-main-wrap'>
       <div className='login-form-container'>
+          <button className='close-button' type="button" onClick={handleCloseClick}>
+             <FontAwesomeIcon icon={faClose}/>
+          </button>
       <div className='login-header'>
       <h1>Login</h1>
       <p>You must be an admin to access employee information.</p>
       </div>
       <form onSubmit={formik.handleSubmit}>
-         <div className='input-group'>
-         <div>
-          <label htmlFor="username">Username</label>
-          <input
-            id='username'
-            name="username"
-            type="text"
-            placeholder="Enter username"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.username}
-            required
-            
-          />
-          {formik.touched.username && formik.errors.username && (
-            <p>{formik.errors.username}</p>
-          )}
-        </div>
+          <div className='input-group'>
+          <div className='log-container'>
+            <label htmlFor="username">Username</label>
+            <input
+              id='username'
+              name="username"
+              type="text"
+              placeholder="Enter username"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.username}
+              required
+              
+            />
+            {formik.touched.username && formik.errors.username && (
+              <p className='formik-statements'>{formik.errors.username}</p>
+            )}
+          </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id='password'
-            name="password"
-            type="password"
-            placeholder="Enter password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            required
-          />
-          {formik.touched.password && formik.errors.password && (
-            <p>{formik.errors.password}</p>
-          )}
-        </div>
+          <div className='log-container'>
+            <label htmlFor="password">Password</label>
+            <input
+              id='password'
+              name="password"
+              type="password"
+              placeholder="Enter password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              required
+            />
+            {formik.touched.password && formik.errors.password && (
+              <p className='formik-statements'>{formik.errors.password}</p>
+            )}
+          </div>
          </div>
         <button type="submit" className='btn-login'>Login</button>
         <button type="button" className='btn-login' onClick={handleSignUpClick}>Sign up</button>

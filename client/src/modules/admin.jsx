@@ -7,7 +7,7 @@ import { useAuth } from '../components/authContext';
 import '../styles/admin.css';
 import AddEmployee from '../components/AddEmployee';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faDoorClosed, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Admin = () => {
   const [formData, setFormData] = useState({
@@ -248,7 +248,10 @@ const Admin = () => {
         departments={departments}
         designations={designations}
       />
-      <button type='button' onClick={handleLogout}>Logout</button>
+      <div className='logout-button-wrap'>
+        <button type='button' onClick={handleLogout}>Logout
+        <FontAwesomeIcon icon={faDoorClosed}/></button>
+      </div>
     </div>
   );
 };

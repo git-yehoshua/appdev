@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import "../styles/employeeSearch.css";
 
 const EmployeeSearch = ({ setSelectedEmployee }) => {
@@ -34,6 +36,7 @@ const EmployeeSearch = ({ setSelectedEmployee }) => {
   return (
     <div className="search-container">
       <div className="searchBar">
+      <FontAwesomeIcon className="search-icon" icon={faSearch}/>
         <input
         className="search-input"
           type="text"
