@@ -7,9 +7,13 @@ import { useAuth } from '../components/authContext';
 import '../styles/admin.css';
 import AddEmployee from '../components/AddEmployee';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDoorClosed, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faDoorClosed, faPlus, faUserGear } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -107,6 +111,10 @@ const Admin = () => {
         console.error('Error adding employee', error);
       });
   };
+
+  const handleAdminManagement = () => {
+    navigate('/manageadmin');
+  }
 
   const handleDelete = (employeeId) => {
     if (window.confirm('Are you sure you want to delete this employee?')) {
@@ -251,6 +259,11 @@ const Admin = () => {
       <div className='logout-button-wrap'>
         <button type='button' onClick={handleLogout}>Logout
         <FontAwesomeIcon icon={faDoorClosed}/></button>
+        <div>
+        <button type='button' onClick={handleAdminManagement}>
+          Manage admin
+          <FontAwesomeIcon icon={faUserGear}/></button>
+        </div>
       </div>
     </div>
   );

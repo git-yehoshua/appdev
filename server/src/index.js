@@ -32,14 +32,14 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-// Use sessions
+//Sessions
 app.use(
   session({
     secret: 'somnium-asylum',
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // Set to true if using HTTPS
+      secure: false,
       maxAge: 24 * 60 * 60 * 1000, // Set the session duration (24 hours in this case)
     },
   })

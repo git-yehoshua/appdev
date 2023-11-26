@@ -7,6 +7,7 @@ import Login from './modules/Login';
 import Signup from './modules/Signup';
 import { AuthProvider, useAuth } from './components/authContext';
 import NavBar from './components/NavBar';
+import ManageAdmin from './modules/ManageAdmin';
 
 function App() {
   function PrivateRoute({ element, path }) {
@@ -29,6 +30,7 @@ function App() {
               path='/admin'
               element={<PrivateRoute element={<Admin />} path="/admin" />}
             />
+            <Route path='/manageadmin' element={<ManageAdmin/>} />
         </Routes>
        </Router>
       </div>

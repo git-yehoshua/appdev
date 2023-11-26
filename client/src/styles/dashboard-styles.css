@@ -23,7 +23,6 @@
 
 .with-box-shadow {
     box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
-    border: 1px solid gray;
 }
 
 
@@ -46,6 +45,11 @@
 
 .qr-code {
     padding: 10px;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+}
+
+.qr-code:hover {
+  transform: scale(1.05);
 }
 
 
@@ -56,7 +60,6 @@
     flex-direction: column;
     font-size: 16px;
     color: #213547;
-    border: 1px solid #213547;
     min-height: 373px;
     border-radius: 5px;
     padding: 1rem;

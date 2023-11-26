@@ -37,7 +37,7 @@ function Signup() {
         setRegisterStatus(response.data.message);
         toast.success('Signup successful!', {
           position: 'top-right',
-          autoClose: 3000, // Close the notification after 3 seconds
+          autoClose: 300, 
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,

@@ -7,13 +7,12 @@
   .signup-form-container {
     position: relative;
     background-color: aliceblue opacity rgba(0, 0, 0, 0.10);
-    border-style: solid;
     border-width: 1px;
     padding: 20px;
     margin: 50px auto;
     max-width: 400px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
     text-align: left;
   }
   
