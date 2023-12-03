@@ -1,0 +1,47 @@
+.floating-history-button {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #213547;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s; 
+    animation: bounce 1s infinite;
+  }
+  
+  .floating-history-button:hover {
+    background-color: #fff;
+    border: 3px solid #213547;
+    color: #213547;
+  }
+
+  .floating-history-button:active{
+    background-color: #4c82af;
+  }
+
+  .floating-history-button svg {
+    margin: 0;
+  }
+  
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+  

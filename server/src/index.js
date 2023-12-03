@@ -58,6 +58,26 @@ app.post('/admin/login', userLogin);
 // Route for user signup
 app.post('/admin/signup', userSignup);
 
+// Route to store QR code data in the database
+app.post('/qr-codes', (req, res) => {
+  const { employeeId, codeData } = req.body;
+
+  const insertQuery = `
+    INSERT INTO qr_codes (employee_id, code_data)
+    VALUES (?, ?);
+  `;
+
+  connection.query(insertQuery, [employeeId, codeData], (err, result) => {
+    if (err) {
+      console.error('Error storing QR code data', err);
+      res.status(500).send('Error storing QR code data');
+    } else {
+      console.log('QR code data stored successfully');
+      res.send('QR code data stored successfully');
+    }
+  });
+});
+
 // Route for fetching all departments
 app.get('/departments', (req, res) => {
   const query = 'SELECT * FROM departments'; // Your SQL query
@@ -188,7 +208,9 @@ app.get('/view-employee/:id', (req, res) => {
       e.id AS employeeId,
       CONCAT(e.first_name, ' ', e.last_name) AS name,
       d.name AS department,
-      des.title AS designation
+      des.title AS designation,
+      e.created_at AS createdAt,
+      e.updated_at AS updatedAt
     FROM employees e
     LEFT JOIN departments d ON e.department_id = d.id
     LEFT JOIN designations des ON e.designation_id = des.id
@@ -204,6 +226,31 @@ app.get('/view-employee/:id', (req, res) => {
     }
   });
 });
+
+// Route for fetching QR code generation history
+app.get('/qr-code-history', (req, res) => {
+  const query = `
+    SELECT 
+      qc.id AS qrCodeId,
+      qc.employee_id AS employeeId,
+      CONCAT(e.first_name, ' ', e.last_name) AS employeeName,
+      qc.code_data AS qrCodeData,
+      qc.generated_at AS generatedAt
+    FROM qr_codes qc
+    LEFT JOIN employees e ON qc.employee_id = e.id
+    ORDER BY qc.generated_at DESC;
+  `;
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching QR code generation history', err);
+      res.status(500).send('Error fetching QR code generation history');
+    } else {
+      res.send(results);
+    }
+  });
+});
+
 
 //Route to update an employee
 app.put('/employees/:id', (req, res) => {

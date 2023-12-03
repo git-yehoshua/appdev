@@ -11,6 +11,7 @@ import FloatingAddButton from "../components/FloatingAddButton";
 import { mirage } from 'ldrs';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleRight, faCopy, faDownload } from "@fortawesome/free-solid-svg-icons";
+import FloatingHistoryButton from "../components/FloatingHistoryButton";
 
 
 mirage.register();
@@ -26,13 +27,12 @@ const Dashboard = () => {
   useEffect(() => {
     if (selectedEmployee) {
       fetchEmployeeData();
+      setIsQRGenerated(false);
     }
   }, [selectedEmployee]);
 
   const fetchEmployeeData = async () => {
     try {
-      // const response = await axios.get("http://localhost:5000/employees");
-      // setEmployeeData(response.data);
       const viewResponse = await axios.get(`http://localhost:5000/view-employee/${selectedEmployee.id}`);
       setEmployeeData(viewResponse.data);
     } catch (error) {
@@ -49,6 +49,13 @@ const Dashboard = () => {
       setEmployeeData(response.data);
       setIsQRGenerated(true);
       setIsGeneratingQR(false);
+      
+      const qrCodeData = JSON.stringify(selectedEmployee);
+    
+      await axios.post('http://localhost:5000/qr-codes', {
+      employeeId: selectedEmployee.id,
+      codeData: qrCodeData,
+    });
       toast.success('QR code generated.', {
         position: toast.POSITION.BOTTOM_LEFT,
         autoClose: 300,
@@ -187,6 +194,9 @@ const Dashboard = () => {
 
       <div className="float-wrap">
       <FloatingAddButton/>
+      </div>
+      <div>
+      <FloatingHistoryButton/>
       </div>
     </div>
   );

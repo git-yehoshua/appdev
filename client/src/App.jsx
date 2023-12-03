@@ -8,6 +8,7 @@ import Signup from './modules/Signup';
 import { AuthProvider, useAuth } from './components/authContext';
 import NavBar from './components/NavBar';
 import ManageAdmin from './modules/ManageAdmin';
+import QRCodeHistory from './modules/QRCodeHistory';
 
 function App() {
   function PrivateRoute({ element, path }) {
@@ -31,6 +32,7 @@ function App() {
               element={<PrivateRoute element={<Admin />} path="/admin" />}
             />
             <Route path='/manageadmin' element={<ManageAdmin/>} />
+            <Route path='/history' element={<QRCodeHistory/>} />
         </Routes>
        </Router>
       </div>
