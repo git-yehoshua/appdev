@@ -8,12 +8,9 @@ import '../styles/admin.css';
 import AddEmployee from '../components/AddEmployee';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorClosed, faPlus, faUserGear } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+
 
 const Admin = () => {
-
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -112,9 +109,7 @@ const Admin = () => {
       });
   };
 
-  const handleAdminManagement = () => {
-    navigate('/manageadmin');
-  }
+  
 
   const handleDelete = (employeeId) => {
     if (window.confirm('Are you sure you want to delete this employee?')) {
@@ -196,7 +191,10 @@ const Admin = () => {
       });
   };
   
-  
+  const formatJoinDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   return (
     <div className='admin-main-wrap'>
@@ -238,7 +236,7 @@ const Admin = () => {
               <td>{employee.email}</td>
               <td>{employee.department}</td>
               <td>{employee.designation}</td>
-              <td>{employee.join_date}</td>
+              <td>{formatJoinDate(employee.join_date)}</td>
               <td>
                 <button onClick={() => handleUpdate(employee)}>Update</button>
                 <button className='delete-button' onClick={() => handleDelete(employee.id)}>Delete</button>
@@ -260,9 +258,6 @@ const Admin = () => {
         <button type='button' onClick={handleLogout}>Logout
         <FontAwesomeIcon icon={faDoorClosed}/></button>
         <div>
-        <button type='button' onClick={handleAdminManagement}>
-          Manage admin
-          <FontAwesomeIcon icon={faUserGear}/></button>
         </div>
       </div>
     </div>

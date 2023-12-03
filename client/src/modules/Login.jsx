@@ -13,6 +13,23 @@ const Login = () => {
   const [loginStatus, setLoginStatus] = useState('');
   const { isLoggedIn, setIsLoggedIn } = useAuth();
 
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await Axios.get('http://localhost:5000/check-auth', { withCredentials: true });
+
+        if (response.data.isAuthenticated) {
+          setIsLoggedIn(true);
+          navigate('/admin');
+        }
+      } catch (error) {
+        console.error('Error checking authentication status:', error);
+      }
+    };
+
+    checkAuthStatus();
+  }, [setIsLoggedIn, navigate]);
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -37,8 +54,7 @@ const Login = () => {
           setLoginStatus(response.data.message);
         } else {
           setIsLoggedIn(true);
-          // Redirect to the admin page or any other page on successful login
-          navigate('/admin');
+          
         }
       } catch (error) {
         console.error('Error during login:', error);

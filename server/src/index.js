@@ -24,13 +24,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware to check if the user is authenticated
-function isAuthenticated(req, res, next) {
-  if (req.session.user) {
-    next();
-  } else {
-    res.status(401).send({ message: 'Unauthorized' });
-  }
-}
+// function isAuthenticated(req, res, next) {
+//   if (req.session.user) {
+//     next();
+//   } else {
+//     res.status(401).send({ message: 'Unauthorized' });
+//   }
+// }
 
 //Sessions
 app.use(
@@ -247,6 +247,15 @@ app.post('/logout', (req, res) => {
       res.json({ message: 'Logout successful' });
     }
   });
+});
+
+// Route to check authentication status
+app.get('/check-auth', (req, res) => {
+  if (req.session.user) {
+    res.json({ isAuthenticated: true });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
 });
 
 

@@ -41,10 +41,9 @@ const Dashboard = () => {
   };
 
 
-  const handleGenerateQR = async () => {
+  const handleGenerateQR = async () => {    
     setIsGeneratingQR(true);
-    await new Promise(resolve => setTimeout(resolve, 1500))
-
+    await new Promise(resolve => setTimeout(resolve, 1500));
     try {
       const response = await axios.get(`http://localhost:5000/view-employee/${selectedEmployee.id}`);
       setEmployeeData(response.data);
@@ -157,7 +156,7 @@ const Dashboard = () => {
             <p>Designation: {employeeData.designation}</p>
           </div>
         )}
-        {selectedEmployee && ( // Conditionally render the button
+        {selectedEmployee && ( 
           <button className="generate-qr-button" onClick={handleGenerateQR}>
             Generate QR <FontAwesomeIcon icon={faArrowAltCircleRight}/>
           </button>
