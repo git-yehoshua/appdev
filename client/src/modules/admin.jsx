@@ -8,6 +8,7 @@ import '../styles/admin.css';
 import AddEmployee from '../components/AddEmployee';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorClosed, faPlus, faUserGear } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 
 const Admin = () => {
@@ -27,6 +28,7 @@ const Admin = () => {
   const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
   const [isAddPopupOpen, setAddPopupOpen] = useState(true);
   const {isLoggedIn, setIsLoggedIn} = useAuth();
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -178,17 +180,15 @@ const Admin = () => {
 
 
   const handleLogout = () => {
-    // Add your logout logic here
-    // For example, you might want to clear the session and redirect to the login page
-    axios.post('http://localhost:5000/logout') // Assuming you have a logout endpoint
-      .then((response) => {
-        console.log('User logged out successfully', response.data);
-        setIsLoggedIn(false);
-        
-      })
-      .catch((error) => {
-        console.error('Error logging out', error);
-      });
+    axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
+    .then((response) => {
+      console.log('User logged out successfully', response.data);
+      setIsLoggedIn(false);
+      navigate('/');
+    })
+    .catch((error) => {
+      console.error('Error logging out', error);
+    });
   };
   
   const formatJoinDate = (dateString) => {
