@@ -241,6 +241,37 @@ app.get('/qr-code-history', (req, res) => {
     ORDER BY qc.generated_at DESC;
   `;
 
+  // Route to delete selected QR code generation history by ID
+app.delete('/qr-code-history/:id', (req, res) => {
+  const qrCodeId = req.params.id;
+  const query = 'DELETE FROM qr_codes WHERE id = ?';
+
+  connection.query(query, [qrCodeId], (err, result) => {
+    if (err) {
+      console.error('Error deleting QR code generation history', err);
+      res.status(500).send('Error deleting QR code generation history');
+    } else {
+      console.log('QR code generation history deleted successfully');
+      res.send('QR code generation history deleted successfully');
+    }
+  });
+});
+
+// Route to delete all QR code generation history
+app.delete('/qr-code-history', (req, res) => {
+  const query = 'DELETE FROM qr_codes';
+
+  connection.query(query, (err, result) => {
+    if (err) {
+      console.error('Error deleting all QR code generation history', err);
+      res.status(500).send('Error deleting all QR code generation history');
+    } else {
+      console.log('All QR code generation history deleted successfully');
+      res.send('All QR code generation history deleted successfully');
+    }
+  });
+});
+
   connection.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching QR code generation history', err);

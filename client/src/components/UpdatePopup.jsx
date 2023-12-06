@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/update-popup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designations }) => {
-  const initialData = {
-    firstName: employee ? employee.first_name : '',
-    lastName: employee ? employee.last_name : '',
-    email: employee ? employee.email : '',
-    departmentId: employee ? employee.department_id : '',
-    designationId: employee ? employee.designation_id : '',
-    joinDate: employee ? employee.join_date : '',
-  };
+  const [updatedData, setUpdatedData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    departmentId: '',
+    designationId: '',
+    joinDate: '',
+  });
 
-  const [updatedData, setUpdatedData] = useState(initialData);
-
-  
+  useEffect(() => {
+    if (employee) {
+      setUpdatedData({
+        firstName: employee.first_name,
+        lastName: employee.last_name,
+        email: employee.email,
+        departmentId: employee.department_id,
+        designationId: employee.designation_id,
+        joinDate: formatDateForInput(employee.join_date),
+      });
+    }
+  }, [employee]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,6 +32,11 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
       ...updatedData,
       [name]: value
     });
+  };
+
+  const formatDateForInput = (dateString) => {
+    const formattedDate = new Date(dateString).toISOString().split('T')[0];
+    return formattedDate;
   };
 
   const handleSubmit = (event) => {
@@ -45,7 +59,6 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
             name="firstName"
             value={updatedData.firstName}
             onChange={handleInputChange}
-            placeholder={initialData.firstName}
             required
           />
           </div>
@@ -56,7 +69,6 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
             name="lastName"
             value={updatedData.lastName}
             onChange={handleInputChange}
-            placeholder={initialData.lastName}
             required
           />
           </div>
@@ -68,7 +80,6 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
             name="email"
             value={updatedData.email}
             onChange={handleInputChange}
-            placeholder={initialData.email}
             required
           />
           <br />
@@ -111,7 +122,6 @@ const UpdatePopup = ({ isOpen, onClose, onUpdate, employee, departments, designa
             name="joinDate"
             value={updatedData.joinDate}
             onChange={handleInputChange}
-            placeholder={initialData.joinDate}
             required
           />
           <br />

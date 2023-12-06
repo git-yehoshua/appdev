@@ -106,7 +106,7 @@ const Dashboard = () => {
         .then(function (dataUrl) {
           const img = new Image();
           img.src = dataUrl;
-          img.crossOrigin = "Anonymous"; // Handle CORS
+          img.crossOrigin = "Anonymous"; 
           img.onload = function () {
             const canvas = document.createElement("canvas");
             canvas.width = img.width;
@@ -148,7 +148,10 @@ const Dashboard = () => {
 
   return (
     <div className="main-wrap">
-      <h2>QR Code Generator</h2>
+      <div className="title-wrap">
+      <h1>QR ID</h1 >
+      <h4>Employee QR Code Generator</h4>
+      </div>
         <div className="search-wrap">
           <EmployeeSearch setSearch={setSearch} setSelectedEmployee={setSelectedEmployee} />
         </div>

@@ -26,6 +26,7 @@
     min-height: 80vh;
     min-width: 400px;
     background-color: #fff;
+    border-radius: 10px;
 
     /* Animation */
     animation-name: slide-up;

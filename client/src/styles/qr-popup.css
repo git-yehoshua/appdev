@@ -1,4 +1,4 @@
-.update-popup {
+.view-history-popup {
     position: fixed;
     top: 0%;
     left: 0%;
@@ -19,11 +19,11 @@
     animation-timing-function: ease-in-out;
     }
 
-.popup-inner {
+.view-history-inner {
     position: relative;
     padding: 32px;
     width: 30%;
-    min-height: 80vh;
+    min-height: 60vh;
     min-width: 400px;
     background-color: #fff;
     border-radius: 10px;
@@ -34,23 +34,24 @@
     animation-timing-function: ease-in-out;
 }
 
-
-.popup-inner select,
-.popup-inner input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.view-history-inner h2 {
+    text-align: center;
 }
+.download-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 20px;
+    width: 100%;
+    font-size: 14px;
+  }
+  
+  
+  .download-button:hover {
+    background-color: #0056b3;
+  }
 
-.update-input-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 0;
-}
 
 /* Animation Keyframes */
 @keyframes fade-in {
@@ -71,25 +72,3 @@
     }
   }
 
-  .save-changes button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 15px 20px;
-    width: 100%;
-    font-size: 14px;
-  }
-  
-  .save-changes {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding-top: 10px;
-    margin-top: 10px;
-    border-top: 1px solid #ccc;
-  }
-  
-  .save-changes button:hover {
-    background-color: #0056b3;
-  }

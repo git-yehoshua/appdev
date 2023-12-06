@@ -8,7 +8,7 @@ const AddEmployee = ({ isOpen, onClose, formData, departments, designations, han
     isOpen && (
         <div className='add-popup'>
         <div className='add-popup-inner'>
-        <h2>Add Employee</h2>
+        <h3>Add Employee</h3>
         <form onSubmit={handleSubmit}>
           <div className='name-input-wrap'>
           <div>

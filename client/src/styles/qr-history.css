@@ -1,16 +1,46 @@
-.header-wrap {
-    display: flex;
-    width: 100%;
-  }
-  
-.header-wrap h2 {
-    margin-left: 10px;
-  }
+.history-header-wrap {
+  display: flex;
+  width: 100%;
+}
+
+.history-header-wrap h2 {
+  margin-left: 10px;
+}
+
+.history-header-wrap button {
+  background-color: transparent;
+  color: #213547;
+  border: none;
+  margin-left: auto;
+  padding-right: 20px;
+  transition: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.history-header-wrap button svg {
+  margin-left: 3px;
+}
+
+.history-header-wrap button:hover {
+  border: none;
+  color: #535bf2;
+}
+
+
+.history-header-wrap button:focus,
+.history-header-wrap button:focus-visible {
+  outline: none;
+}
 
 /* TABLE DESIGNS */
 .qr-history-wrap {
     margin: 1rem;
   }
+
+.qr-history-wrap {
+  margin-top: 0%;
+}
   table {
       width: 100%;
       border-collapse: collapse;
@@ -67,5 +97,63 @@
         padding: 1rem;
         margin: 1rem; 
       }
+
+      .confirmation-dialog {
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100vh;
+        /* padding: 20px; */
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* Animation */
+        animation-name: fade-in;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-in-out;
+      }
+
+      .confirm-inner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .confirm-inner p {
+        margin-bottom: 15px;
+      }
+      
+      .confirm-inner button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 10px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      
+      .confirm-inner button:hover {
+        background-color: #0056b3;
+      }
+
+      .confirm-inner .button-container {
+        margin-left: auto;
+      }
+      
 
       
